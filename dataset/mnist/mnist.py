@@ -79,9 +79,9 @@ def _load_img(file_name):
 def _get_dataset_numpy():
     dataset = {}
     dataset['train_img'] = _load_img(dataset_file['train_img'])
-    dataset['train_label'] = _load_img(dataset_file['train_label'])
+    dataset['train_label'] = _load_label(dataset_file['train_label'])
     dataset['test_img'] = _load_img(dataset_file['test_img'])
-    dataset['test_label'] = _load_img(dataset_file['test_label'])
+    dataset['test_label'] = _load_label(dataset_file['test_label'])
 
 
 def init_mnist():
@@ -101,9 +101,7 @@ def _change_one_hot_encoding(x):
 
 
 if __name__ == "__main__":
-    download_mnist()
-    dataset = {}
-    dataset['test_label'] = _load_label(dataset_file['test_label'])
-    dataset['test_img'] = _load_img(dataset_file['test_img'])
+    init_mnist()
+
     pass
 
