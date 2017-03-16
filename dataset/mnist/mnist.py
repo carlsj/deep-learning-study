@@ -1,13 +1,14 @@
 # coding: utf-8
 # ref: https://github.com/WegraLee/deep-learning-from-scratch
 
+
 try:
     import urllib.request
 except ImportError:
     raise ImportError('You need Python 3.x')
+import os
 import os.path
 import gzip
-import os
 import numpy as np
 
 
@@ -41,7 +42,24 @@ def download_mnist():
     for val in dataset_file.values():
         _download(val)
 
+
+def _load_label(file_name):
+    file_path = dataset_dir + "/" + file_name
+
+    # TODO: return num_labels
+    print("Converting" + file_name + "to NumPy Arrary...")
+    with gzip.open(file_path, 'rb') as f:
+        dt = np.dtype(int)
+        dt = dt.newbyteorder('>')
+        num_labels = int(np.frombuffer(f.read(8), dt, 1, offset=4))  # offset to skip magic number
+        labels = np.frombuffer(f.read(), np.uint8)
+    print("Done")
+    return labels
+
+
 if __name__ == "__main__":
     download_mnist()
+    dataset = {}
+    dataset['test_label'] = _load_label(dataset_file['test_label'])
     pass
 
