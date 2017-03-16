@@ -74,6 +74,14 @@ def _load_img(file_name):
     return img_data
 
 
+def _get_dataset_numpy():
+    dataset = {}
+    dataset['train_img'] = _load_img(dataset_file['train_img'])
+    dataset['train_label'] = _load_img(dataset_file['train_label'])
+    dataset['test_img'] = _load_img(dataset_file['test_img'])
+    dataset['test_label'] = _load_img(dataset_file['test_label'])
+
+
 if __name__ == "__main__":
     download_mnist()
     dataset = {}
