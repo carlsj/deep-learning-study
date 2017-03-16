@@ -102,7 +102,17 @@ def _change_one_hot_encoding(x):
 
 
 def load_mnist(normalize=False, flatten=False, one_hot_label=False):
+    """ load MINST data set
 
+    Prameters>
+    normalize : Normalize image pixel in a range of 0.0 ~ 1.0
+    one_hot_label : Change label to one-hot array
+        e.g. : [0,0,1,0,0,0,0,0,0,0]
+    flatten : Flatten image to 1D array
+
+    Returns>
+    (train_img, train_label), (teset_img, test_label)
+    """
     if not os.path.exists(save_file):
         dataset = init_mnist()
     else:
