@@ -93,6 +93,13 @@ def init_mnist():
     print("Done!")
 
 
+def _change_one_hot_encoding(x):
+    one_hot_encoding = np.zeros((x.size, 10))
+    for idx, row in enumerate(one_hot_encoding):
+        row[x[idx]] = 1
+    return one_hot_encoding
+
+
 if __name__ == "__main__":
     download_mnist()
     dataset = {}
