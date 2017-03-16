@@ -57,9 +57,27 @@ def _load_label(file_name):
     return labels
 
 
+def _load_img(file_name):
+    file_path = dataset_dir + "/" + file_name
+
+    # TODO: return num_imgs
+    print("Converting" + file_name + "to NumPy Arrary...")
+    with gzip.open(file_path, 'rb') as f:
+        dt = np.dtype(int)
+        dt = dt.newbyteorder('>')
+        num_imgs = int(np.frombuffer(f.read(8), dt, 1, offset=4))  # offset to skip magic number
+        num_rows = int(np.frombuffer(f.read(4), dt, 1))
+        num_cols = int(np.frombuffer(f.read(4), dt, 1))
+        img_data = np.frombuffer(f.read(), np.uint8)
+    img_data = img_data.reshape(-1, num_rows*num_cols)
+    print("Done")
+    return img_data
+
+
 if __name__ == "__main__":
     download_mnist()
     dataset = {}
     dataset['test_label'] = _load_label(dataset_file['test_label'])
+    dataset['test_img'] = _load_img(dataset_file['test_img'])
     pass
 
