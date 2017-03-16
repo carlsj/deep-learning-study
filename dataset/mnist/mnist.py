@@ -82,7 +82,7 @@ def _get_dataset_numpy():
     dataset['train_label'] = _load_label(dataset_file['train_label'])
     dataset['test_img'] = _load_img(dataset_file['test_img'])
     dataset['test_label'] = _load_label(dataset_file['test_label'])
-
+    return dataset
 
 def init_mnist():
     download_mnist()
@@ -91,6 +91,7 @@ def init_mnist():
     with open(save_file, 'wb') as f:
         pickle.dump(dataset, f, -1)
     print("Done!")
+    return dataset
 
 
 def _change_one_hot_encoding(x):
@@ -100,8 +101,33 @@ def _change_one_hot_encoding(x):
     return one_hot_encoding
 
 
-if __name__ == "__main__":
-    init_mnist()
+def load_mnist(normalize=False, flatten=False, one_hot_label=False):
 
+    if not os.path.exists(save_file):
+        dataset = init_mnist()
+    else:
+        with open(save_file, 'rb') as f:
+            dataset = pickle.load(f)
+
+    if normalize:
+        for key in ('train_img', 'test_img'):
+            dataset[key] = dataset[key].astype(np.float32) / 255.0
+        pass
+
+    if not flatten:
+        for key in ('train_img', 'test_img'):
+            dataset[key] = dataset[key].reshape(-1, 1, 28, 28)
+        pass
+
+    if one_hot_label:
+        dataset['train_label'] = _change_one_hot_encoding(dataset['train_label'])
+        dataset['test_label'] = _change_one_hot_encoding(dataset['test_label'])
+
+    return (dataset['train_img'], dataset['train_label']), (dataset['test_img'], dataset['test_label'])
+
+
+if __name__ == "__main__":
+    (train_img, train_label), (test_img, test_label) = load_mnist()
+    (train_img, train_label), (test_img, test_label) = load_mnist(normalize=True, flatten=True, one_hot_label=True)
     pass
 
