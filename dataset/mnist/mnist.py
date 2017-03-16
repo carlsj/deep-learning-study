@@ -9,6 +9,7 @@ except ImportError:
 import os
 import os.path
 import gzip
+import pickle
 import numpy as np
 
 
@@ -21,6 +22,7 @@ dataset_file = {
 }
 
 dataset_dir = os.path.dirname(os.path.abspath(__file__))
+save_file = dataset_dir + "/mnist.pkl"
 
 train_num = 60000
 test_num = 10000
@@ -80,6 +82,15 @@ def _get_dataset_numpy():
     dataset['train_label'] = _load_img(dataset_file['train_label'])
     dataset['test_img'] = _load_img(dataset_file['test_img'])
     dataset['test_label'] = _load_img(dataset_file['test_label'])
+
+
+def init_mnist():
+    download_mnist()
+    dataset = _get_dataset_numpy()
+    print("Creating pickle file...")
+    with open(save_file, 'wb') as f:
+        pickle.dump(dataset, f, -1)
+    print("Done!")
 
 
 if __name__ == "__main__":
