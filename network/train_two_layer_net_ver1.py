@@ -1,8 +1,7 @@
 # coding: utf-8
 import matplotlib.pylab as plt
-
 from dataset.mnist.mnist import load_mnist
-from network.two_layer_net import *
+from network.two_layer_net_ver1 import *
 
 sys.path.append(os.pardir)
 
@@ -21,7 +20,7 @@ lr = 0.1
 batch_size = 100
 
 # Create Network
-mnist_nn = TwoLayerNet(input_size, hidden_size, output_size, weight_init_std)
+mnist_nn = TwoLayerNetVer1(input_size, hidden_size, output_size, weight_init_std)
 iter_per_epoch = max(train_size / batch_size, 1)
 
 train_loss_list = []

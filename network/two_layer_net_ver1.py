@@ -8,7 +8,7 @@ from common.gradient import numerical_gradient
 sys.path.append(os.pardir)
 
 
-class TwoLayerNet:
+class TwoLayerNetVer1:
 
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         # Initialize parameters
