@@ -11,7 +11,9 @@ The code require following softwares to be excuted
 
 or
 
-* Anaconda 4.2.x : This package includes all the softwares above
+* Anaconda 4.2.x or 4.3.x : [Download](https://repo.continuum.io/archive/)
+  * This package includes all the softwares above
+  * Recommend to use 4.2.x which includes Python 3.5 to use [google tensorflow](https://www.tensorflow.org/) later
 
 
 ## Reference
